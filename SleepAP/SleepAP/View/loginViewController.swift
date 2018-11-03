@@ -10,18 +10,20 @@ import UIKit
 import Parse
 
 class loginViewController: UIViewController {
-    // outlets
-    @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var passwordLabel: UILabel!
+    
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-
+    @IBOutlet weak var cardView: UIView!
+    @IBOutlet weak var loginView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
         usernameTextField.text = ""
         passwordTextField.text = ""
         
+        cardView.layer.cornerRadius = 10;
+        cardView.layer.masksToBounds = true;
     }
     override func viewDidAppear(_ animated: Bool){
         let currentUser = PFUser.current()
@@ -45,21 +47,28 @@ class loginViewController: UIViewController {
 
     
     @IBAction func login(_ sender: Any) {
-        if (usernameTextField.text != nil) && (passwordTextField.text != nil) {
-            PFUser.logInWithUsername(inBackground: usernameTextField.text!, password: passwordTextField.text!) {
-                (user, error) -> Void in
-                if let loggeduser = user {
-                    //@TODO
-                    self.loadHomeScreen()
-                } else {
-                    // The login failed. Check error to see why.
-                    // TODO: tell the user about the failure
-                }
-            }
+//        if (usernameTextField.text != nil) && (passwordTextField.text != nil) {
+//            PFUser.logInWithUsername(inBackground: usernameTextField.text!, password: passwordTextField.text!) {
+//                (user, error) -> Void in
+//                if let loggeduser = user {
+//                    //@TODO
+//                    self.loadHomeScreen()
+//                } else {
+//                    // The login failed. Check error to see why.
+//                    // TODO: tell the user about the failure
+//                }
+//            }
+//        }
+        if let signUpView = self.view.viewWithTag(100) {
+            signUpView.removeFromSuperview()
+            signUpView.isHidden = true
         }
-        
+        cardView.addSubview(loginView)
     }
 
 
+    @IBAction func signUp(_ sender: UIButton) {
+        
+    }
 }
 
